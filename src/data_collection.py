@@ -1,14 +1,16 @@
 import yfinance as yf
 import pandas as pd
-from sklearn.preprocessing import MinMaxScaler
 
-# Fetch historical data
-data = yf.download("AAPL", start="2010-01-01", end="2025-01-01")
-data = data[['Close']]  # Extract only the 'Close' prices
-data.dropna(inplace=True)  # Drop missing values
-print(data.head())
+def fetch_stock_data(ticker, start_date, end_date):
+    """
+    Fetch historical stock data for a given ticker.
+    :param ticker: Stock ticker (e.g., 'AAPL').
+    :param start_date: Start date for data (YYYY-MM-DD).
+    :param end_date: End date for data (YYYY-MM-DD).
+    :return: DataFrame with stock prices.
+    """
+    data = yf.download(ticker, start=start_date, end=end_date)
+    data = data[['Close']].dropna()  # Extract 'Close' prices and drop missing values
+    return data
 
-# Scale data to range [0, 1]
-scaler = MinMaxScaler(feature_range=(0, 1))
-scaled_data = scaler.fit_transform(data[['Close']])
 
