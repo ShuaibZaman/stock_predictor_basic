@@ -27,3 +27,7 @@ predictions = make_predictions(model, X_test, scaler)
 # Step 5: Evaluate performance
 rmse = evaluate_model(y_test, predictions)
 print(f"Model RMSE: {rmse}")
+
+# Step 6: Save model
+model.save('../models/stock_predictor.h5')
+print("Model saved")
